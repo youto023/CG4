@@ -2,32 +2,44 @@
 
 using namespace MathUtility;
 
-void Particle::Initialize(Model* model) {
+Particle::~Particle() {
 
-	//NULLポインタチェック
+	// パーティクルの解放
+	for (Particle* particle : particles_) {
+		delete particle;
+	}
+	particles_.clear();
+}
+
+void Particle::Initialize(Model* model, Vector3 position, Vector3 velocity) {
+
+	// NULLポインタチェック
 	assert(model);
-	//引数として受け取ったデータをメンバ変数に記録する
+	// 引数として受け取ったデータをメンバ変数に記録する
 	model_ = model;
+	velocity_ = velocity;
 	// ワールド変換の初期化
 	worldTransform_.Initialize();
-	//色の設定
+	// 色の設定
 	objectColor_.Initialize();
 	color_ = {1, 1, 0, 1};
-
+	worldTransform_.translation_ = position;
+	//大きさ
+	worldTransform_.scale_ = {0.2f, 0.2f, 0.2f};
 }
 
 void Particle::Update() {
 
-	//移動
-	worldTransform_.translation_ += {0.0f, 0.1f, 0.0f};
-	//行列を更新
+	// 移動
+	worldTransform_.translation_ += velocity_;
+	// 行列を更新
 	worldTransform_.UpdateMatrix();
-	//色変更オブジェクトに色の数値を設定する
+	// 色変更オブジェクトに色の数値を設定する
 	objectColor_.SetColor(color_);
 }
 
 void Particle::Draw(Camera& camera) {
 
-	//3Dモデル描画
-	model_->Draw(worldTransform_, camera,&objectColor_);
+	// 3Dモデル描画
+	model_->Draw(worldTransform_, camera, &objectColor_);
 }
