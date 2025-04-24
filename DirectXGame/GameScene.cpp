@@ -1,12 +1,10 @@
 #include "GameScene.h"
 
-// デストラクタ
+//デストラクタ
 GameScene::~GameScene() {
 
 	delete modelParticle_;
-	for (Particle* particle : particles_) {
-		delete particle;
-	}
+	delete particle_;
 }
 
 void GameScene::Initialize() {
@@ -16,37 +14,25 @@ void GameScene::Initialize() {
 	// カメラの初期化
 	camera_.Initialize();
 	// パーティクルの生成
-	for (int i = 0; i < 150; i++) {
-		// 生成
-		Particle* particle = new Particle();
-		// 位置
-		Vector3 position = {0.5f * i, 0.0f, 0.0f};
-		// パーティクルの初期化
-		particle->Initialize(modelParticle_, position);
-		// リストに追加
-		particles_.push_back(particle);
-	}
+	particle_ = new Particle();
+	//パーティクルの初期化
+	particle_->Initialize(modelParticle_);
 }
 
 void GameScene::Update() {
 
-	for (Particle* particle : particles_) {
-
-		// パーティクルの更新
-		particle->Update();
-	}
+	//パーティクルの更新
+	particle_->Update();
 }
 
 void GameScene::Draw() {
 
-	// DirectXCommon　インスタンスの取得
+	//DirectXCommon　インスタンスの取得
 	DirectXCommon* dxCommon = DirectXCommon::GetInstance();
-	// 3Dモデル描画処理
+	//3Dモデル描画処理
 	Model::PreDraw(dxCommon->GetCommandList());
-	for (Particle* particle : particles_) {
-		// パーティクルの描画
-		particle->Draw(camera_);
-	}
-	// 3Dモデル描画処理
+	//パーティクルの描画
+	particle_->Draw(camera_);
+	//3Dモデル描画処理
 	Model::PostDraw();
 }

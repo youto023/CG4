@@ -21,6 +21,6 @@ private:
 	//カメラ
 	Camera camera_;
 	// パーティクル　
-	std::list<Particle*> particles_;
+	Particle* particle_ = nullptr;
 
 };
