@@ -2,7 +2,16 @@
 
 using namespace MathUtility;
 
-void Particle::Initialize(Model* model) {
+Particle::~Particle() {
+
+	//パーティクルの解放
+	for (Particle* particle : particles_) {
+		delete particle;
+	}
+	particles_.clear();
+}
+
+void Particle::Initialize(Model* model, Vector3 position) {
 
 	//NULLポインタチェック
 	assert(model);
@@ -13,6 +22,7 @@ void Particle::Initialize(Model* model) {
 	//色の設定
 	objectColor_.Initialize();
 	color_ = {1, 1, 0, 1};
+	worldTransform_.translation_ = position;
 
 }
 

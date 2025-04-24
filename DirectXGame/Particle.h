@@ -8,7 +8,8 @@ using namespace KamataEngine;
 class Particle {
 public:
 
-	void Initialize(Model*model);
+	~Particle();
+	void Initialize(Model*model,Vector3 position);
 	void Update();
 	void Draw(Camera& camera);
 
@@ -22,5 +23,7 @@ private:
 	ObjectColor objectColor_;
 	//色の数値
 	Vector4 color_;
+	// パーティクル　
+	std::list<Particle*> particles_;
 
 };
