@@ -3,6 +3,7 @@
 #include "KamataEngine.h"
 #include "Particle.h"
 
+
 class GameScene {
 public:
 
@@ -10,7 +11,8 @@ public:
 	void Initialize();
 	void Update();
 	void Draw();
-
+	void ParticleBorn(KamataEngine::Vector3 position);
+	
 private:
 
 	//パーティクル3Dモデルデータ

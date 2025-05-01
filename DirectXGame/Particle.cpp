@@ -26,7 +26,7 @@ void Particle::Initialize(Model* model, Vector3 position, Vector3 velocity) {
 	objectColor_.Initialize();
 	color_ = {1, 1, 0, 1};
 	worldTransform_.translation_ = position;
-	//大きさ
+	// 大きさ
 	worldTransform_.scale_ = {0.2f, 0.2f, 0.2f};
 }
 
@@ -38,22 +38,22 @@ void Particle::Update() {
 	worldTransform_.UpdateMatrix();
 	// 色変更オブジェクトに色の数値を設定する
 	objectColor_.SetColor(color_);
-	//終了なら何もしない
+	// 終了なら何もしない
 	if (isFinished_) {
 		return;
 	}
 
-	//カウンターを1フレーム分の秒数進める
+	// カウンターを1フレーム分の秒数進める
 	counter_ += 1.0f / 60.0f;
 
-	//存続時間の上限に達したら
+	// 存続時間の上限に達したら
 	if (counter_ >= kDuration) {
 		counter_ = kDuration;
-		//終了扱いにする
+		// 終了扱いにする
 		isFinished_ = true;
 	}
 
-	//フェード処理
+	// フェード処理
 	color_.w = std::clamp(1.0f - counter_ / kDuration, 0.0f, 1.0f);
 }
 
