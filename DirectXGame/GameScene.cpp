@@ -1,6 +1,7 @@
 #include "GameScene.h"
 #include <random>
 
+using namespace KamataEngine;
 using namespace MathUtility;
 
 std::random_device seedGenerator;
@@ -22,16 +23,19 @@ void GameScene::Initialize() {
 	modelParticle_ = Model::CreateSphere(4, 4);
 	// カメラの初期化
 	camera_.Initialize();
+	// 発生位置は乱数
+	Vector3 position = {distribution(randomEngine) * 30.0f, distribution(randomEngine) * 20.0f, 0};
+
 	// パーティクルの生成
 	for (int i = 0; i < 150; i++) {
 		// 生成
 		Particle* particle = new Particle();
-		// 位置
-		Vector3 position = {0.0,0.0f,0.0f};
-		//移動量
+		// 移動量
 		Vector3 velocity = {distribution(randomEngine), distribution(randomEngine), 0};
+		// 位置
+		Vector3 localposition = {0.0, 0.0f, 0.0f};
 		// パーティクルの初期化
-		particle->Initialize(modelParticle_, position,velocity);
+		particle->Initialize(modelParticle_, localposition, velocity);
 		// リストに追加
 		particles_.push_back(particle);
 
@@ -39,7 +43,6 @@ void GameScene::Initialize() {
 		velocity *= distribution(randomEngine);
 		velocity *= 0.1f;
 	}
-
 }
 
 void GameScene::Update() {
@@ -49,6 +52,15 @@ void GameScene::Update() {
 		// パーティクルの更新
 		particle->Update();
 	}
+
+	// 終了フラグの立ったパーティクルを削除
+	particles_.remove_if([](Particle* particle) {
+		if (particle->isFinished_) {
+			delete particle;
+			return true;
+		}
+		return false;
+	});
 }
 
 void GameScene::Draw() {
