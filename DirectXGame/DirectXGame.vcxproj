@@ -106,7 +106,9 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="Object\Effect.cpp" />
+    <ClCompile Include="Object\Particle.cpp" />
+    <ClCompile Include="Scene\GameScene.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -185,7 +187,9 @@
     <None Include="Resources\shaders\Sprite.hlsli" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameScene.h" />
+    <ClInclude Include="Object\Effect.h" />
+    <ClInclude Include="Object\Particle.h" />
+    <ClInclude Include="Scene\GameScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

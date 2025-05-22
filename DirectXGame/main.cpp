@@ -1,42 +1,55 @@
+#include "KamataEngine.h"
+#include "Scene/GameScene.h"
 #include <Windows.h>
-#include"KamataEngine.h"
-#include "GameScene.h"
+
+
 using namespace KamataEngine;
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
-	// DirectXCommonインスタンスを取得
+	// エンジンの初期化
+	Initialize(L"LE3D_09_タケダ_ユウト");
+
+	// DirectXCommonインスタンスの取得
 	DirectXCommon* dxCommon = DirectXCommon::GetInstance();
-	//エンジン初期化
-	KamataEngine::Initialize(L"LE3D_09_タケダ_ユウト_CG4");
+
+
+
+	// ゲームシーンの生成
+	GameScene* gameScene = new GameScene();
+	// ゲームシーンの初期化
+	gameScene->Initialize();
+
 	//メインループ
 	while (true) {
-		// エンジン更新
-		if (KamataEngine::Update()) {
+		// エンジンの更新
+		if (Update()) {
 			break;
 		}
-		//ゲームシーンのインスタンス生成
-		GameScene* gameScene = new GameScene();
-		// ゲームシーンの初期化
-		gameScene->Initialize();
-		//ゲームシーンの解放
-		delete gameScene;
-		// nullptrに代入
-		gameScene = nullptr;
+
 
 		// ゲームシーンの更新
 		gameScene->Update();
-	// 描画開始
+
+		// 描画開始
 		dxCommon->PreDraw();
+
+		// ここに描画処理を記述する
 
 		// ゲームシーンの描画
 		gameScene->Draw();
 
-		// 描画終了
-		dxCommon->PostDraw();	
-	}
-	
 
-	// エンジン終了
-	KamataEngine::Finalize();
+
+		// 描画終了
+		dxCommon->PostDraw();
+	}
+
+	delete gameScene;
+	// ゲームシーンの解放
+	gameScene = nullptr;
+
+	// エンジンの終了処理
+	Finalize();
+
 	return 0;
 }
