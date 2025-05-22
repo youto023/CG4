@@ -22,4 +22,6 @@ private:
 	KamataEngine::WorldTransform worldTransform_;
 	// モデル
 	KamataEngine::Model* model_ = nullptr;
+
+
 };

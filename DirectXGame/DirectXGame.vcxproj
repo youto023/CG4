@@ -110,6 +110,7 @@
     <ClCompile Include="Object\Particle.cpp" />
     <ClCompile Include="Scene\GameScene.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="WorldTransformEx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\TerrainPS.hlsl">
