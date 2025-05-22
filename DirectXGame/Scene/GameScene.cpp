@@ -7,6 +7,7 @@ using namespace KamataEngine;
 //std::mt19937 RandomEngine(seed_Generator());
 //std::uniform_real_distribution<float> RandomSize(0.0f, 1.0f);
 //std::uniform_real_distribution<float> RandomRotation(0.0f, 1.0f);
+//std::uniform_real_distribution<float> RandomFloat(-1.0f, 1.0f);
 
 GameScene::GameScene() {}
 GameScene::~GameScene() {
@@ -16,8 +17,12 @@ GameScene::~GameScene() {
 	// modelParticle_ = nullptr;
 	//  カメラの解放
 
-	delete effect_;
-	effect_ = nullptr;
+	// エフェクトの解放
+	for (Effect* effect : effectes_) {
+		delete effect;
+		effect = nullptr;
+	}
+
 
 	delete modelEffect_;
 	modelEffect_ = nullptr;
@@ -36,21 +41,43 @@ void GameScene::Initialize() {
 
 	//Vector3 size = Vector3(0.0f, 0.0f/*RandomSize(RandomEngine)*/, 0.0f);
 	//Vector3 rotate = Vector3(0.0f, 0.0f, 0.0f/*RandomRotation(RandomEngine)*/);
+	
+
+
 
 	//// モデルの初期化
 	// modelParticle_ = Model::CreateSphere(4, 4);
 	//  モデルの初期化
 	// modelEffect_->Create();
 	modelEffect_ = Model::CreateFromOBJ("Plane");
+
+	// エフェクトの生成
 	// modelEffect_=Model::CreateSphere(4, 4);
-	effect_ = new Effect();
-	effect_->Initialize(modelEffect_/*,size,rotate*/);
+	//effect_ = new Effect();
+	//effect_->Initialize(modelEffect_,pos);
+	for (int i = 0; i < 10; i++) {
+		// 生成
+		Effect* effect = new Effect();
+		// 位置
+		Vector3 pos = Vector3(0.0f, 0.0f, 0.0f);
+		// 初期化
+		effect->Initialize(modelEffect_, pos);
+		// リストに追加
+		effectes_.push_back(effect);
+	}
+
 
 	// カメラの初期化
 	camera_.Initialize();
 }
 
-void GameScene::Update() { effect_->Update(); }
+void GameScene::Update() {
+	
+	for (Effect* effect : effectes_) {
+		effect->Update();
+	}
+
+}
 
 void GameScene::Draw() {
 
@@ -79,7 +106,9 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 
-	effect_->Draw(camera_);
+	for (Effect* effect : effectes_) {
+		effect->Draw(camera_);
+	}
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
