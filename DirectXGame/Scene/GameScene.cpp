@@ -76,7 +76,14 @@ void GameScene::Update() {
 	for (Effect* effect : effectes_) {
 		effect->Update();
 	}
-
+	// 終了フラグが立ったエフェクトを削除
+	effectes_.remove_if([](Effect* effect) {
+		if (effect->IsFinished()) {
+			delete effect;
+			return true;
+		}
+		return false;
+	});
 }
 
 void GameScene::Draw() {
