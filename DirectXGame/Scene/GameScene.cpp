@@ -3,11 +3,11 @@ using namespace KamataEngine;
 
 #include <random>
 
-//std::random_device seed_Generator;
-//std::mt19937 RandomEngine(seed_Generator());
-//std::uniform_real_distribution<float> RandomSize(0.0f, 1.0f);
-//std::uniform_real_distribution<float> RandomRotation(0.0f, 1.0f);
-//std::uniform_real_distribution<float> RandomFloat(-1.0f, 1.0f);
+// std::random_device seed_Generator;
+// std::mt19937 RandomEngine(seed_Generator());
+// std::uniform_real_distribution<float> RandomSize(0.0f, 1.0f);
+// std::uniform_real_distribution<float> RandomRotation(0.0f, 1.0f);
+// std::uniform_real_distribution<float> RandomFloat(-1.0f, 1.0f);
 
 GameScene::GameScene() {}
 GameScene::~GameScene() {
@@ -23,7 +23,6 @@ GameScene::~GameScene() {
 		effect = nullptr;
 	}
 
-
 	delete modelEffect_;
 	modelEffect_ = nullptr;
 }
@@ -37,13 +36,10 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 
 	//// 乱数の初期化
-	//srand((unsigned)time(NULL));
+	// srand((unsigned)time(NULL));
 
-	//Vector3 size = Vector3(0.0f, 0.0f/*RandomSize(RandomEngine)*/, 0.0f);
-	//Vector3 rotate = Vector3(0.0f, 0.0f, 0.0f/*RandomRotation(RandomEngine)*/);
-	
-
-
+	// Vector3 size = Vector3(0.0f, 0.0f/*RandomSize(RandomEngine)*/, 0.0f);
+	// Vector3 rotate = Vector3(0.0f, 0.0f, 0.0f/*RandomRotation(RandomEngine)*/);
 
 	//// モデルの初期化
 	// modelParticle_ = Model::CreateSphere(4, 4);
@@ -53,8 +49,8 @@ void GameScene::Initialize() {
 
 	// エフェクトの生成
 	// modelEffect_=Model::CreateSphere(4, 4);
-	//effect_ = new Effect();
-	//effect_->Initialize(modelEffect_,pos);
+	// effect_ = new Effect();
+	// effect_->Initialize(modelEffect_,pos);
 	for (int i = 0; i < 10; i++) {
 		// 生成
 		Effect* effect = new Effect();
@@ -66,13 +62,12 @@ void GameScene::Initialize() {
 		effectes_.push_back(effect);
 	}
 
-
 	// カメラの初期化
 	camera_.Initialize();
 }
 
 void GameScene::Update() {
-	
+
 	for (Effect* effect : effectes_) {
 		effect->Update();
 	}

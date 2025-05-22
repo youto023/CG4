@@ -1,11 +1,12 @@
 #include "Effect.h"
 using namespace KamataEngine;
 #include <random>
-std::random_device seed_Generator;
-std::mt19937 RandomEngine(seed_Generator());
-std::uniform_real_distribution<float> RandomSize(0.0f, 1.0f);
-std::uniform_real_distribution<float> RandomRotation(-1.0f, 1.0f);
+
 void Effect::Initialize(KamataEngine::Model* model, KamataEngine::Vector3 pos) {
+	std::random_device seed_Generator;
+	std::mt19937 RandomEngine(seed_Generator());
+	std::uniform_real_distribution<float> RandomSize(0.0f, 1.0f);
+	std::uniform_real_distribution<float> RandomRotation(-1.0f, 1.0f);
 	// NULLポインタチェック
 	assert(model);
 	model_ = model;
