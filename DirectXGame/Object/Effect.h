@@ -7,7 +7,7 @@ public:
 	/// 初期化
 	/// </summary>
 	/// <param name="model">モデル</param>
-	void Initialize(KamataEngine::Model* model, KamataEngine::Vector3 pos);
+	void Initialize(KamataEngine::Model* model, KamataEngine::Vector3 pos, KamataEngine::Vector4 color);
 	/// <summary>
 	/// 更新
 	/// </summary>
@@ -36,4 +36,6 @@ private:
 	float counter_ = 0.0f;
 	// 存在時間(消滅までの時間)<秒>
 	const float kDuration = 1.0f;
+	// 移動速度
+	float moveSpeed_ = 0.1f;
 };
