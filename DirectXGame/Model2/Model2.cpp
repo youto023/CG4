@@ -131,7 +131,7 @@ Model2* Model2::CreateSphere(uint32_t divisionVertial, uint32_t divisionHorizont
 	return instance;
 }
 
-Model2* Model2::CreateSquare() {
+Model2* Model2::CreateSquare(int num) {
 	// メモリ確保
 	Model2* instance = new Model2;
 	std::vector<Mesh::VertexPosNormalUv> vertices;
@@ -146,29 +146,30 @@ Model2* Model2::CreateSquare() {
 	indices.resize(kNumIndices);
 
 	// 左下
-	vertices[0].pos = {-1.0f, 1.0f, 0.0f};
+	vertices[0].pos = {0.0f, 5.0f, 0.0f};
 	vertices[0].uv = {0.0f, 1.0f};
 	vertices[0].normal = {0.0f, 0.0f, -1.0f};
 	// 左上
-	vertices[1].pos = {1.0f, 1.0f, 0.0f};
+	vertices[1].pos = {0.0f, -5.0f, 0.0f};
 	vertices[1].uv = {0.0f, 0.0f};
 	vertices[1].normal = {0.0f, 0.0f, -1.0f};
 	// 右下
-	vertices[2].pos = {-1.0f, -1.0f, 0.0f};
-	vertices[2].uv = {1.0f, 1.0f};
+	vertices[2].pos = {5.0f * static_cast<float>(num), 5.0f, 0.0f};
+	vertices[2].uv = {1.0f * static_cast<float>(num), 0.0f};
 	vertices[2].normal = {0.0f, 0.0f, -1.0f};
+
 	// 右上
-	vertices[3].pos = {1.0f, -1.0f, 0.0f};
-	vertices[3].uv = {1.0f, 0.0f};
+	vertices[3].pos = {5.0f * static_cast<float>(num), -5.0f, 0.0f};
+	vertices[3].uv = {1.0f * static_cast<float>(num), 1.0f};
 	vertices[3].normal = {0.0f, 0.0f, -1.0f};
 
 	// インデックス
-	indices[0] = 0;
-	indices[1] = 1;
+	indices[0] = 1;
+	indices[1] = 0;
 	indices[2] = 2;
-	indices[3] = 1;
+	indices[3] = 2;
 	indices[4] = 3;
-	indices[5] = 2;
+	indices[5] = 1;
 
 	instance->InitializeFromVertices(vertices, indices);
 

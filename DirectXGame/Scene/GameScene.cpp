@@ -31,7 +31,7 @@ void GameScene::Initialize() {
 	Model2::StaticInitialize();
 	model2Handle_ = TextureManager::Load("./Resources/uvChecker.png");
 	//model_ = Model2::CreateFromOBJ("Panel", true);
-	model_ = Model2::CreateSquare();
+	model_ = Model2::CreateSquare(5);
 }
 
 void GameScene::Update() {
