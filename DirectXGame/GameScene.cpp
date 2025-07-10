@@ -1,26 +1,59 @@
 #include "GameScene.h"
+#include <cmath> // sin関数に必要
 using namespace KamataEngine;
 
-void GameScene::Initialize() {
-	// ファイル名を指定してテクスチャを読み込む
-	textureHandle_ = TextureManager::Load("texture.png");
-	// スプライトインスタンスの生成
-	sprite_ = Sprite::Create(textureHandle_, {0,0});
+GameScene::GameScene() {}
 
-}
- GameScene::~GameScene(){
-	// スプライトの解放
+GameScene::~GameScene() {
+	// デストラクタ
 	delete sprite_;
- }
-void GameScene::Update() {}
-
-void GameScene::Draw() {
-	// DirectCommonインスタンスの取得
-	DirectCommon* directCommon = DirectCommon::GetInstance();
-	// スプライトの描画
-	sprite_->Draw(directCommon);
-	// 描画を実行
-	directCommon->Present();
-
 }
 
+void GameScene::Initialize() {
+
+	//ファイル名を指定してテクスチャを読み込む
+	textureHandle_ = TextureManager::Load("Title.png");
+
+	// スプライトインスタンスの生成
+	sprite_ = Sprite::Create(textureHandle_, {0, 0});
+}
+
+// メンバー変数に追加
+int frameCount = 0;
+
+void GameScene::Update() 
+{
+	//スプライトの今の座標を取得
+	//Vector2 position = sprite_->GetPosition();
+	////座標を｛２，１｝移動
+	//position.x += 2.0f;
+	//position.y += 1.0f;
+	////移動した座標をスプライトに反映
+	//sprite_->SetPosition(position);
+
+	frameCount++;
+
+	// sin波で上下に揺れるY座標を作る（±10ピクセル範囲で動かす）
+	float y = 10 * sin(frameCount * 0.05f);
+
+	// スプライトの位置を更新
+	sprite_->SetPosition({0.0f, y});
+}
+
+void GameScene::Draw() 
+{
+	//DirectXCommonインスタンスの取得
+	DirectXCommon* dxCommon = DirectXCommon::GetInstance();
+	//スプライト描画前処理
+	Sprite::PreDraw(dxCommon->GetCommandList());
+	
+	//スプライトインスタンスの描画処理
+	if(frameCount % 60 >= 30) 
+	{
+		sprite_->Draw();
+	}
+	
+
+	//スプライト描画後処理
+	Sprite::PostDraw();
+}
