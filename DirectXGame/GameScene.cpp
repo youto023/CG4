@@ -32,6 +32,10 @@ void GameScene::Initialize() {
 	modelPlayer_ = Model::CreateFromOBJ("player", true);
 	player_ = new Player();
 	player_->Initialize(modelPlayer_, camera_, {0, 0, 0});
+
+	//ゲージ
+	gauge_ = new Gauge();
+	gauge_->Initialize();
 }
 
 // メンバー変数に追加
@@ -59,6 +63,7 @@ void GameScene::Update() {
 
 	stage_->Update();
 	
+	gauge_->Update();
 
 }
 
@@ -92,6 +97,10 @@ void GameScene::Draw()
 
 	// スプライト描画前処理(2D近景)
 	Sprite::PreDraw(dxCommon->GetCommandList());
+
+	//ゲージ
+	gauge_->Draw();
+
 
 	// スプライト描画後処理(背景)
 	Sprite::PostDraw();

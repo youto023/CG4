@@ -2,6 +2,7 @@
 #include"KamataEngine.h"
 #include "Stage.h"
 #include "Player.h"
+#include"Gauge.h"
 class GameScene 
 {
 public:
@@ -38,4 +39,7 @@ private:
 
 	// ビュープロジェクション生成
 	KamataEngine::Camera* camera_;
+
+	//ゲージ
+	Gauge* gauge_ = nullptr;
 };
