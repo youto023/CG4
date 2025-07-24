@@ -3,6 +3,7 @@
 #include "Stage.h"
 #include "Player.h"
 #include"Gauge.h"
+#include"Number.h"
 class GameScene 
 {
 public:
@@ -42,4 +43,7 @@ private:
 
 	//ゲージ
 	Gauge* gauge_ = nullptr;
+
+	//ナンバー
+	Number* number_ = nullptr;
 };

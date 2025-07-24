@@ -36,6 +36,10 @@ void GameScene::Initialize() {
 	//ゲージ
 	gauge_ = new Gauge();
 	gauge_->Initialize();
+
+	//数値
+	number_ = new Number();
+	number_->Initialize();
 }
 
 // メンバー変数に追加
@@ -44,13 +48,7 @@ int frameCount = 0;
 
 
 void GameScene::Update() {
-	//スプライトの今の座標を取得
-	//Vector2 position = sprite_->GetPosition();
-	////座標を｛２，１｝移動
-	//position.x += 2.0f;
-	//position.y += 1.0f;
-	////移動した座標をスプライトに反映
-	//sprite_->SetPosition(position);
+	
 	player_->Update();
 
 	frameCount++;
@@ -65,6 +63,7 @@ void GameScene::Update() {
 	
 	gauge_->Update();
 
+	number_->Update();
 }
 
 void GameScene::Draw() 
@@ -101,6 +100,8 @@ void GameScene::Draw()
 	//ゲージ
 	gauge_->Draw();
 
+	//数値
+	number_->Draw();
 
 	// スプライト描画後処理(背景)
 	Sprite::PostDraw();
