@@ -6,8 +6,8 @@ void Stage::Initialize(uint32_t textureHandle)
 	textureHandle_=textureHandle;
 
 	// スプライトインスタンスの生成
-	sprite_ = Sprite::Create(textureHandle_, {0, 0});
-	sprite2_ = Sprite::Create(textureHandle_, {1280, 0});
+	sprite_ = Sprite::Create(textureHandle_, {0, 0});//タイトル
+	sprite2_ = Sprite::Create(textureHandle_, {1280, 0});//ステージ背景
 }
 
 void Stage::Update() 
